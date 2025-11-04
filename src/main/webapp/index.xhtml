@@ -9,34 +9,33 @@
 <ui:composition template="/templates/page-template.xhtml">
 
     <ui:define name="pageContent">
-
+        
         <p:panel header="Kalkulator kredytowy">
-
-            <p:messages id="msg" />
-
             <h:form id="kalkulatorKredytowy">
-                <h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+                <p:messages id="msg">
+                    <p:autoUpdate/>
+                </p:messages>
 
+                <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="kwota" value="Kwota kredytu:" />
-                    <p:inputText id="kwota" value="#{calcBB.kwota}" />
+                    <p:inputText id="kwota" value="#{calcBB.kwota}" required="true" label="Kwota kredytu" />
+                    <p:message for="kwota"/>
 
                     <p:outputLabel for="lata" value="Liczba lat:" />
-                    <p:inputText id="lata" value="#{calcBB.lata}" />
- 
-                    <p:inputText id="oprocentowanie" value="#{calcBB.oprocentowanie}"/>
-                    <p:slider for="oprocentowanie"/>
-                    
+                    <p:inputText id="lata" value="#{calcBB.lata}" required="true" label="Liczba lat" />
+                    <p:message for="lata"/>
+
+                    <p:slider for="oprocentowanie" minValue="0.1" maxValue="20" step="0.1" range="max"/>
+                    <p:inputText id="oprocentowanie" value="#{calcBB.oprocentowanie}" required="true" label="Oprocentowanie" />
+                    <p:message for="oprocentowanie"/>
                 </h:panelGrid>
 
-                <p:commandButton value="Oblicz ratę" action="#{calcBB.oblicz()}" update="msg kalkulatorKredytowy" />
-                <p:commandButton value="Oblicz (AJAX)" action="#{calcBB.oblicz_AJAX()}" update="msg" />
+                <p:commandButton value="Oblicz ratę" action="#{calcBB.oblicz()}" update="@form" />
+                <p:commandButton value="Oblicz (AJAX)" action="#{calcBB.oblicz_AJAX()}" update="@form" />
+                <br/><br/>
 
                 <p:outputLabel value="Miesięczna rata: #{calcBB.wynik} PLN" rendered="#{not empty calcBB.wynik}" />
-
-                <p:commandLink value="Informacje" action="#{calcBB.info()}" />
-
             </h:form>
-
         </p:panel>
 
     </ui:define>
