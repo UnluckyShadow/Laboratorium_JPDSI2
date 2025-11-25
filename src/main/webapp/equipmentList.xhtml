@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <meta charset="utf-8" />
+    <title>Lista sprzętu</title>
+</h:head>
+
+<h:body style="background-color: #eee; margin: 0.5em;">
+
+    <h:form id="form-table" style="margin-bottom:1em;">
+
+        <p:dataTable value="#{sprzetListBB.list}" var="p" style="width:100%">
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Nazwa" />
+                </f:facet>
+                <h:outputText value="#{p.nazwa}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Kategoria" />
+                </f:facet>
+                <h:outputText value="#{p.kategoria}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Cena Dzienna" />
+                </f:facet>
+                <h:outputText value="#{p.cenaDzienna}" />
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Dostępny" />
+                </f:facet>
+                <h:outputText value="#{p.dostepny ? 'Tak' : 'Nie'}" />
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+
+</h:body>
+</html>
