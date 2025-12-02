@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
 
@@ -11,8 +12,24 @@
 </h:head>
 
 <h:body style="background-color: #eee; margin: 0.5em;">
+    
+        <p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
+                 style="margin-bottom: 1em;">
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="nazwa:" />
+                    <p:inputText value="#{sprzetListBB.nazwa}" />
+                    <p:commandButton value="Szukaj" update="form-table" />
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
 
-    <h:form id="form-table" style="margin-bottom:1em;">
+        <p:messages />
+
+        <h:form id="form-table" style="margin-bottom:1em;">
+
+            <p:commandButton value="Dodaj nowy sprzęt" style="margin-bottom:1em;" 
+                             action="#{sprzetListBB.newSprzet()}" ajax="false" />
 
         <p:dataTable value="#{sprzetListBB.list}" var="p" style="width:100%">
 
@@ -43,9 +60,21 @@
                 </f:facet>
                 <h:outputText value="#{p.dostepny ? 'Tak' : 'Nie'}" />
             </p:column>
+            
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="opcje" />
+                    </f:facet>
+
+                    <p:commandButton value="Edytuj" style="margin-right: 0.5em"
+                                     action="#{sprzetListBB.editSprzet(p)}"/>
+
+                    <p:commandButton value="Usuń" style="margin-right: 0.5em"
+                                     action="#{sprzetListBB.deleteSprzet(p)}"
+                                     update="@form" />
+                </p:column>
 
         </p:dataTable>
-
     </h:form>
 
 </h:body>

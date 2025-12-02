@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <f:metadata>
+        <f:viewAction action="#{sprzetEditBB.onLoad()}" />
+    </f:metadata>
+
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>Edycja sprzętu</title>
+    </h:head>
+
+    <h:body style="background-color:#eee; margin:0.5em;">
+
+        <p:panel toggleable="true" header="Edycja sprzętu">
+
+            <h:form rendered="#{sprzetEditBB.sprzet != null}">
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <h:outputLabel for="eq-name" value="Nazwa:" />
+                    <p:inputText id="eq-name" value="#{sprzetEditBB.sprzet.nazwa}"
+                                 required="true" requiredMessage="Podaj nazwę"
+                                 validatorMessage="max 100 znaków">
+                        <f:validateLength maximum="100" />
+                    </p:inputText>
+                    <p:message for="eq-name" display="icon"/>
+
+                    <h:outputLabel for="eq-cat" value="Kategoria:" />
+                    <p:inputText id="eq-cat" value="#{sprzetEditBB.sprzet.kategoria}"
+                                 required="true" requiredMessage="Podaj kategorię"
+                                 validatorMessage="max 60 znaków">
+                        <f:validateLength maximum="60" />
+                    </p:inputText>
+                    <p:message for="eq-cat" display="icon"/>
+
+                    <h:outputLabel for="eq-price" value="Cena [zł]:" />
+                    <p:inputText id="eq-price" value="#{sprzetEditBB.sprzet.cenaDzienna}"
+                                 required="true" requiredMessage="Podaj cenę"
+                                 converterMessage="Wpisz liczbę (np. 49.99)">
+                        <f:convertNumber maxFractionDigits="2" />
+                    </p:inputText>
+                    <p:message for="eq-price" display="icon"/>
+
+                    <h:outputLabel for="eq-desc" value="Opis:" />
+                    <p:inputTextarea id="eq-desc" value="#{sprzetEditBB.sprzet.opis}"
+                                     autoResize="true" cols="30" rows="3"
+                                     validatorMessage="max 255 znaków">
+                        <f:validateLength maximum="255"/>
+                    </p:inputTextarea>
+                    <p:message for="eq-desc" display="icon"/>
+
+                </h:panelGrid>
+
+                <p:messages id="msgs"/>
+
+                <p:commandButton value="Zapisz"
+                                 action="#{sprzetEditBB.saveData()}"
+                                 style="margin-right:1em;"
+                                 update="@form"/>
+                <p:button value="Anuluj" outcome="equipmentList" />
+            </h:form>
+
+        </p:panel>
+
+    </h:body>
+</html>

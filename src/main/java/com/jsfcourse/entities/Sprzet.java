@@ -73,7 +73,6 @@ public class Sprzet implements Serializable {
     @Column(name = "zdjecie")
     private String zdjecie;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "data_dodania")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataDodania;
